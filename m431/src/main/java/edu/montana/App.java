@@ -14,6 +14,9 @@ public final class App {
 			"Public Key: (N=" + key.getN() + ", E=" + key.getE() + ")"
 		);
 
+		//RSABreaker breaker = new RSABreaker("primes.txt");
+		//breaker.loadPrimes();
+
 		// Ask the user for a number to encrypt
 		Scanner inputScanner = new Scanner(System.in);
 		System.out.print("Enter a number to encrypt: ");
