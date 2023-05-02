@@ -28,24 +28,27 @@ public final class App {
 
 		// Ask the user for a number to encrypt
 		Scanner inputScanner = new Scanner(System.in);
-		System.out.print("Enter a number to encrypt: ");
-		BigInteger message = inputScanner.nextBigInteger();
+		System.out.print("Enter a message to encrypt: ");
+		String messageStr = inputScanner.nextLine();
 		inputScanner.close();
 
-		// Encrypt the number
+		// Encrypt the message
+		BigInteger message = new BigInteger(messageStr.getBytes());
 		BigInteger encrypted = key.encrypt(message);
-		System.out.println("Encrypted: " + encrypted);
+		System.out.println("Encrypted (decimal): " + encrypted);
 
-		// Decrypt the number
+		// Decrypt the message
 		BigInteger decrypted = key.decrypt(encrypted);
-		System.out.println("Decrypted: " + decrypted);
+		String decryptedStr = new String(decrypted.toByteArray());
+		System.out.println("Decrypted: " + decryptedStr);
 
-		// Break the encrypted number
+		// Break the encrypted message
 		if (privD != null) {
 			RSAKey customKey =
 				new RSAKey(key.getN(), key.getE(), privD);
 			BigInteger broken = customKey.decrypt(encrypted);
-			System.out.println("Broken: " + broken);
+			String brokenStr = new String(broken.toByteArray());
+			System.out.println("Broken: " + brokenStr);
 		}
 	}
 }
