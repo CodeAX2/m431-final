@@ -7,7 +7,7 @@ public final class App {
 	public static void main(String[] args) {
 
 		// Create a generator for 256-bit messages
-		RSAGenerator generator = new RSAGenerator(16);
+		RSAGenerator generator = new RSAGenerator(26);
 		// Generate the key
 		RSAKey key = generator.nextKey();
 		System.out.println(
@@ -17,6 +17,14 @@ public final class App {
 		// Create the breaker
 		RSABreaker breaker = new RSABreaker("primes.txt");
 		breaker.loadPrimes();
+		// Attempt to break manually
+		System.out.println("Breaking RSA");
+		BigInteger privD = breaker.breakRSA(key);
+		if (privD != null) {
+			System.out.println("Broke RSA! D=" + privD);
+		} else {
+			System.out.println("Could not break RSA!");
+		}
 
 		// Ask the user for a number to encrypt
 		Scanner inputScanner = new Scanner(System.in);
@@ -32,8 +40,7 @@ public final class App {
 		BigInteger decrypted = key.decrypt(encrypted);
 		System.out.println("Decrypted: " + decrypted);
 
-		// Attempt to break manually
-		BigInteger privD = breaker.breakRSA(key);
+		// Break the encrypted number
 		if (privD != null) {
 			RSAKey customKey =
 				new RSAKey(key.getN(), key.getE(), privD);

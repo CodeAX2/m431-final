@@ -59,21 +59,18 @@ public class RSABreaker {
 		}
 
 		boolean foundPair = false;
-		BigInteger pairFirst = BigInteger.ONE, pairSecond =
-												   BigInteger.ONE;
+		BigInteger pairFirst = BigInteger.ONE;
+		BigInteger pairSecond = BigInteger.ONE;
 
 		for (int i = 0; i < primes.size() && !foundPair; i++) {
+
 			pairFirst = primes.get(i);
 
-			for (int j = i; j < primes.size() && !foundPair; j++) {
-				pairSecond = primes.get(j);
-				BigInteger product = pairFirst.multiply(pairSecond);
-
-				if (n.compareTo(product) == -1) {
-					break;
-				} else if (n.compareTo(product) == 0) {
-					foundPair = true;
-				}
+			if (n.mod(pairFirst).compareTo(BigInteger.ZERO) == 0) {
+				// n is divisible by the first number, found a pair
+				pairSecond = n.divide(pairFirst);
+				foundPair = true;
+				break;
 			}
 		}
 
