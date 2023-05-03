@@ -3,6 +3,10 @@ package edu.montana;
 import java.math.BigInteger;
 import java.util.Scanner;
 
+/**
+ * Represents the main program that generates a 256 bit RSA key,
+ * attempts to break the key, and encrypts a user given message
+ */
 public final class App {
 	public static void main(String[] args) {
 

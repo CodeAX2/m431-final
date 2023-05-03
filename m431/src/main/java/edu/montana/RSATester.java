@@ -2,13 +2,27 @@ package edu.montana;
 
 import java.math.BigInteger;
 
+/**
+ * Represents a basic profiler to test generation and break times for
+ * RSA keys of various bit sizes
+ */
 public class RSATester {
 
 	public static void main(String[] args) {
-		//testGenerationTimes(10, 4096, 12);
+		testGenerationTimes(10, 4096, 12);
 		testBreakTimes(10, 32);
 	}
 
+	/**
+	 * Test the generation time for RSA keys
+	 * @param numPerBitSize the number of keys to generate for each
+	 *     bit size
+	 * @param maxBitSize the (rough) maximum bit size to generate keys
+	 *     for. Keys will not be generated larget than maxBitSize *
+	 * (divStepSize + 1) / divStepSize
+	 * @param divStepSize the amount to divide the current bit size
+	 *     when incrementing to the new bit size
+	 */
 	public static void testGenerationTimes(
 		int numPerBitSize, int maxBitSize, int divStepSize
 	) {
@@ -33,6 +47,12 @@ public class RSATester {
 		}
 	}
 
+	/**
+	 * Test the break time for RSA keys
+	 * @param numPerBitSize the number of keys to generate/break for
+	 *     each bit size
+	 * @param maxBitSize the maximum bit size to generate keys up to
+	 */
 	public static void testBreakTimes(
 		int numPerBitSize, int maxBitSize
 	) {

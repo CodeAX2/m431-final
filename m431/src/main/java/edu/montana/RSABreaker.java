@@ -48,6 +48,13 @@ public class RSABreaker {
 		return true;
 	}
 
+	/**
+	 * Generates a the D component of a private RSA key given the
+	 * existing public RSA key
+	 * @param key the existing RSA key
+	 * @return the generated private D component, or null if it could
+	 *     not break the key
+	 */
 	public BigInteger breakRSA(RSAKey key) {
 		BigInteger n = key.getN();
 
@@ -58,6 +65,7 @@ public class RSABreaker {
 			return null;
 		}
 
+		// Look for a pair of primes that multiply to n
 		boolean foundPair = false;
 		BigInteger pairFirst = BigInteger.ONE;
 		BigInteger pairSecond = BigInteger.ONE;
